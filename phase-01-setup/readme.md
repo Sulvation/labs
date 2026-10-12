@@ -34,6 +34,10 @@ The variable $env:CONTACT_EMAIL is a environment variable, which ensures user da
 If the $env:CONTACT_EMAIL is empty, Azure will fail the deployment loudly.
 The default budget amount is 20, and can be changed in the \bicep\params\sub-budget.bicepparam file by editing "param amount ##"
 
+## Proof
+
+After the usage data refreshed for the previous day, the Azure Portal shows the budget is 0,02% progressed. Alternatively, setting Cost Analysis filtered on the tag purpose=lab, the same usage is shown. More specifically €0,01 for the rg-lab-budget-compute-euw-test-01 showing <€0,01 for: Virtual Networks, Virtual Machines, Storage. Forecast is unavailable as the resources have since been deleted.
+
 # Decisions
 - ADR-0001: phase1-tenant-identification
 - ADR-0002: phase1-budget-alert
@@ -41,4 +45,4 @@ The default budget amount is 20, and can be changed in the \bicep\params\sub-bud
 - ADR-0004: lab-owner tag
 
 # What to do differently
-Figure out how to run the variable in Azure CLi from windows powershell window without getting errors. Only got it working with a powershell variable and command instead of Azure CLI.
+Figure out how to run the variable in Azure CLi from windows powershell window without getting errors. Only got it working with a powershell variable and command instead of Azure CLI. -- This was due to a WSL / Windows issue where due to system depencies it simply couldn't work.
