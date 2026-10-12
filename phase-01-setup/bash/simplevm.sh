@@ -10,5 +10,5 @@ az vm create \
     --admin-username 'azureuser' \
     --assign-identity \
     --generate-ssh-keys \
-    --public-ip-address '""' \
+    --public-ip-address "" \
     --tags 'purpose=lab' 'module=s1' 'expires=2026-10-11'

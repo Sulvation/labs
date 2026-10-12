@@ -7,7 +7,7 @@
 
 ## 2. [x] Budget deployed from code
 
-## 3. [] Proof that it works
+## 3. [x] Proof that it works
 
 ## 4. [x] Know the blind spots
 
@@ -24,10 +24,10 @@
 3. Copy the name of the subscription the budget needs to be attached to, then run: set-azcontext -Subscriptionname "name of the subscription" to change the context.
 4. Check if current subscription changed with: get-azcontext
 5. Set the Powershell variable for $env:CONTACT_EMAIL
-6. Deploy the bicep with Powershell: new-azsubscriptiondeployment -location westeurope -TemplateParameterFile sub-budget.bicepparam -contactEmail $contactEmail
+6. Deploy the bicep with Powershell: new-azsubscriptiondeployment -location westeurope -TemplateParameterFile sub-budget.bicepparam
 7. Verify existance of the budget with: az consumption budget list
 8. Create a resource which consumes credits: /bash/simplevm.sh deploys a Linux Virtual Machine within a test resourcegroup.
-9. Remove the resources to prevent overspend: /bash/removesimplevm.sh removes the resourcegroup and all it's resources.
+9. Remove the resources to prevent overspend: /bash/removesimplevmrg.sh removes the resourcegroup and all it's resources.
 
 ## Notes
 The variable $env:CONTACT_EMAIL is a environment variable, which ensures user data isn't available in the code.
@@ -42,7 +42,7 @@ After the usage data refreshed for the previous day, the Azure Portal shows the 
 - ADR-0001: phase1-tenant-identification
 - ADR-0002: phase1-budget-alert
 - ADR-0003: phase1-rg-conventions
-- ADR-0004: lab-owner tag
+- ADR-0004: lab-owner-tag
 
 # What to do differently
 Figure out how to run the variable in Azure CLi from windows powershell window without getting errors. Only got it working with a powershell variable and command instead of Azure CLI. -- This was due to a WSL / Windows issue where due to system depencies it simply couldn't work.
