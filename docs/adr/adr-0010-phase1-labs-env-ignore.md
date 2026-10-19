@@ -1,8 +1,11 @@
 # Gitignore will keep only .env for now
 
+# Status
+Superseded by ADR-0012: phase1-labs-env-ignore2.md
+
 ## Context and Problem Statement
 
-During testing I've found that "*.env" and ".env.(star)" are still allowed. Should this be the case?
+During testing I've found that `*.env` and `.env.*` are still allowed. Should this be the case?
 
 
 ## Considered Options
