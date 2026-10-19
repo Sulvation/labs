@@ -1,0 +1,41 @@
+# Using the pre-commit gitleaks hook framework
+
+## Context and Problem Statement
+
+Which hook mechanism for gitleaks should be implemented?
+
+
+## Considered Options
+
+1. A .git/hooks script
+2. core.hooksPath
+3. the Pre-commit framework
+
+
+## Decision Outcome
+
+Chosen option: 3. the Pre-Commit framework, as it's pre-made to work with any langauge and any other commonly used hooks, like Gitleaks, is easily added.
+
+
+## Consequences
+While editable, it is pre-made so some thing might function different than expected.
+Pre-commit and the .pre-commit.config.yaml needs to be installed on each device using git. In this lab, only 1 person and 1 device is using it, so the risk is accepted.
+When development transfers to the Linux workstation, steps will have to be repeated.
+
+1. sudo apt install pre-commit
+2. in each repo root: nano .pre-commit-config.yaml >
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+repos:
+-   repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+    -   id: gitleaks
+3. pre-commit autoupdate
+4. pre-commit install
+5. check with pre-commit run --all-files
