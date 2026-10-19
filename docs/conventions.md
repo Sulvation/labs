@@ -17,7 +17,7 @@ The vm inside would be: vm-lab-app-euw-test-01
 
 For Meridiaan, a resource group containing a storage account would be; rg-meri-app-storage-euw-prod-01
 
-<!-- Partly adopted from AI-generated override text -->
+<!-- Partly adopted from AI-generated override text: Concept was understood after study, but explaining proved difficult. -->
 ## Naming Risk
 
 The labs here are ephemeral, which incurs these 2 naming problems:

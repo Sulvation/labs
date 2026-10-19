@@ -47,6 +47,10 @@ To ensure signatures are also verified locally:
 ### 8. [x] .env files are ignored
 1. .gitignore contains .env
 2. Confirmed by cat .gitignore | grep .env
+3. and: git check-ignore -v .env
+.gitignore:149:.env     .env
+4. and: git check-ignore -v app/.env
+.gitignore:149:.env     app/.env
 
 ## Secrets
 
