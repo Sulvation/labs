@@ -20,8 +20,7 @@ In Github > Settings > Email > "Keep my email addresses private" is ticked, as w
 4. Ran the commands: git config --global gpg.format ssh and git config --global user.signingkey ~/.ssh/id_ed25519
 5. Checked what the remote url is set to: git remote -v
 6. If origin is set to https, change this to ssh: git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
-7. Any local commit now needs to include the -S parameter to sign the commit.
-8. git config --global commit.gpgsign true
+7. git config --global commit.gpgSign true
 
 ### 4. [x] Signatures also verify locally, not just on Github
 To ensure signatures are also verified locally:
@@ -42,8 +41,47 @@ To ensure signatures are also verified locally:
 1. All folders have been created in the appropriate repos according to the plan. Empty folders are also present
 
 ### 7. [x] Shell scripts are stored with LF endings
-1. .gitattributes contains the line: *.sh text eol=lf
-2. git check-attr -a -- phase-01-setup/bash/simplevm.sh shows: text:set and eol:lf
+PS C:\learninglab\meridiaan-platform> git ls-files --eol
+i/lf    w/crlf  attr/text=auto          .editorconfig
+i/lf    w/crlf  attr/text=auto          .gitattributes
+i/lf    w/lf    attr/text eol=lf        .github/workflows/placeholder.md
+i/lf    w/crlf  attr/text=auto          .gitignore
+i/lf    w/lf    attr/text=auto          .pre-commit-config.yaml
+i/lf    w/crlf  attr/text=auto          LICENSE
+i/lf    w/lf    attr/text eol=lf        README.md
+i/lf    w/lf    attr/text eol=lf        ansible/placeholder.md
+i/lf    w/lf    attr/text eol=lf        app/placeholder.md
+i/lf    w/lf    attr/text eol=lf        docs/adr/placeholder.md
+i/lf    w/lf    attr/text eol=lf        docs/postmortems/placeholder.md
+i/lf    w/lf    attr/text eol=lf        infra/placeholder.md
+i/lf    w/lf    attr/text eol=lf        k8s/placeholder.md
+PS C:\learninglab\meridiaan-platform>
+
+PS C:\learninglab\labs> git ls-files --eol
+i/lf    w/mixed attr/text=auto          .editorconfig
+i/lf    w/mixed attr/text=auto          .gitattributes
+i/lf    w/lf    attr/text=auto          .gitignore
+i/lf    w/lf    attr/text=auto          .pre-commit-config.yaml
+i/lf    w/lf    attr/text=auto          LICENSE
+i/lf    w/lf    attr/text eol=lf        README.md
+i/lf    w/crlf  attr/text eol=lf        docs/adr/adr-0000-template.md
+i/lf    w/mixed attr/text eol=lf        docs/adr/adr-0001-phase1-tenant-identification.md
+i/lf    w/mixed attr/text eol=lf        docs/adr/adr-0002-phase1-budget-alert.md
+i/lf    w/mixed attr/text eol=lf        docs/adr/adr-0003-phase1-rg-conventions.md
+i/lf    w/crlf  attr/text eol=lf        docs/adr/adr-0004-phase1-lab-owner-tag.md
+i/lf    w/crlf  attr/text eol=lf        docs/adr/adr-0005-phase1-where-git-runs.md
+i/lf    w/crlf  attr/text eol=lf        docs/adr/adr-0006-phase1-auth-keys.md
+i/lf    w/crlf  attr/text eol=lf        docs/adr/adr-0007-phase1-hook-mechanism-gitleaks.md
+i/lf    w/crlf  attr/text eol=lf        docs/adr/adr-0008-phase1-solo-maintainer-ruleset.md
+i/lf    w/mixed attr/text eol=lf        docs/adr/adr-0009-phase1-labs-adr.md
+i/lf    w/crlf  attr/text eol=lf        docs/conventions.md
+i/lf    w/crlf  attr/text eol=lf        phase-01-git/readme.md
+i/lf    w/lf    attr/text eol=lf        phase-01-setup/bash/removesimplevmrg.sh
+i/lf    w/lf    attr/text eol=lf        phase-01-setup/bash/simplevm.sh
+i/lf    w/crlf  attr/text eol=lf        phase-01-setup/bicep/modules/budget.bicep
+i/lf    w/crlf  attr/text=auto          phase-01-setup/bicep/params/sub-budget.bicepparam
+i/lf    w/mixed attr/text eol=lf        phase-01-setup/readme.md
+PS C:\learninglab\labs>
 
 ### 8. [x] .env files are ignored
 1. .gitignore contains .env
@@ -140,7 +178,7 @@ error: failed to push some refs to 'github.com:Sulvation/meridiaan-platform.git'
 ### 12. [X] At least one change in "main" done through a pull request
 
 ### 13. [X] Git log across both repo's show no-reply identifier and only verified commits
-Commits from S1 are not signed, as that was before signing was setup.
+Commits from S1 are not signed, as that was before signing was setup. 7b8795d is not either due to a mistake.
 
 ### 14. [X] At least 4 ADR's exist for this phase
 
@@ -150,3 +188,4 @@ ADR-0006: phase1-auth-keys
 ADR-0007: phase1-hook-mechanism-gitleaks
 ADR-0008: phase1-solo-maintainer-ruleset
 ADR-0009: phase1-labs-adr
+ADR-0010: phase1-labs-env-ignore
