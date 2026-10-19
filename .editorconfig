@@ -1,0 +1,45 @@
+# AI-GENERATED (override): per-language formatting conventions are outside my expertise and not something I expect to author by hand
+# Shared by the labs and meridiaan-platform repos; keep both copies identical.
+# Works alongside .gitattributes: this file controls what the editor writes, .gitattributes what Git stores.
+# VS Code needs the "EditorConfig for VS Code" extension to apply it.
+
+root = true
+
+# Defaults for every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# Windows batch files require CRLF (matches .gitattributes)
+[*.{cmd,bat}]
+end_of_line = crlf
+
+# PowerShell: 4 spaces (PoshCode style guide)
+# UTF-8 without BOM suits PowerShell 7; scripts with non-ASCII characters that must run on 5.1 need a BOM
+[*.{ps1,psm1,psd1}]
+indent_size = 4
+
+# Bash: 2 spaces (Google Shell Style Guide)
+[*.sh]
+indent_size = 2
+
+# Python: 4 spaces (PEP 8)
+[*.py]
+indent_size = 4
+
+# YAML (Ansible, GitHub Actions, Kubernetes, Helm) and JSON: 2 spaces; YAML forbids tabs
+[*.{yml,yaml,json}]
+indent_size = 2
+
+# Terraform and Bicep: 2 spaces, matching terraform fmt and the Bicep formatter
+[*.{tf,tfvars,hcl,bicep,bicepparam}]
+indent_size = 2
+
+# Markdown: trailing whitespace is trimmed here too, consistent with the pre-commit hook
+# Use a trailing backslash for a hard line break instead of two trailing spaces
+[*.md]
+indent_size = 2
