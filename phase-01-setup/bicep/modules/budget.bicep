@@ -89,6 +89,6 @@ resource budget 'Microsoft.Consumption/budgets@2024-08-01' = {
         contactEmails: contactEmail
         thresholdType: 'Actual'
       }
-  }    
+  }
   }
 }

@@ -12,7 +12,7 @@ Bicep
 
 ## Decision Outcome
 
-Chosen option: "Bicep", because it's easier to alter the parameters later and run the bicep again if budgets ever change later down the project. 
+Chosen option: "Bicep", because it's easier to alter the parameters later and run the bicep again if budgets ever change later down the project.
 For this deployment Cost Management Contributor is the least privilege role, as ready won't allow us to create a budget.
 
 ## Consequences

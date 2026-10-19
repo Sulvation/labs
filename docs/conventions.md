@@ -1,6 +1,6 @@
 # Conventions
 
-# Naming Conventions 
+# Naming Conventions
 This project will follow CAF naming conventions: resource type, workload or application, region, environment, instance number.
 To further clarify the resource I'm adding a "function" to the list, as well as a "prefix". Function will specify what the rg containts of the project/app, like compute or storage. Prefix for easy identification which project is belongs to.
 
@@ -17,7 +17,7 @@ The vm inside would be: vm-lab-app-euw-test-01
 
 For Meridiaan, a resource group containing a storage account would be; rg-meri-app-storage-euw-prod-01
 
-<!-- Partly adapted from AI-generated override text -->
+<!-- Partly adopted from AI-generated override text: Concept was understood after study, but explaining proved difficult. -->
 ## Naming Risk
 
 The labs here are ephemeral, which incurs these 2 naming problems:
@@ -59,7 +59,7 @@ To ensure good habits we won't resort to purging any resources.
 
 <!-- Partly adopted AI-generated override end -->
 
-# Tagging 
+# Tagging
 
 To ensure simplification, all tag names and values will be only lowercase to prevent case sensitivity issues.
 Each resource and resource group created will have the following required tag(s):
@@ -76,4 +76,3 @@ Expiry tag date is set by me, end date is determined on when I think this sessio
 ## Tagging Additional
 
 Any resources that can not be tagged need to be placed inside a tagged Resource Group, the expiry tag on the Resource Group is required.
-

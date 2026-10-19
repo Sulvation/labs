@@ -1,0 +1,18 @@
+# ADR for lab repo are located in labs/docs/adr
+
+## Context and Problem Statement
+
+Where does repo Lab contain it's adr's?
+
+## Considered Options
+
+Root of the repo
+Per phase
+
+## Decision Outcome
+
+Chosen option: Root of the repo
+
+## Consequences
+
+When many ADR's exist it might become difficult to quickly locate the correct adr's, this is why the adr namings define the phase they came from and cintain a short descriptive name.
