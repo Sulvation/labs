@@ -70,6 +70,19 @@ repos:
 4. pre-commit install
 5. check with pre-commit run --all-files
 
+Finding:     # Secrets:
+API KEY: REDACTED
+Secret:      REDACTED
+RuleID:      generic-api-key
+Entropy:     3.897587
+File:        phase-01-git/readme.md
+Line:        104
+Fingerprint: phase-01-git/readme.md:generic-api-key:104
+
+1:10PM INF 0 commits scanned.
+1:10PM INF scanned ~53 bytes (53 bytes) in 87.1ms
+1:10PM WRN leaks found: 1
+
 ### 10. [X] Secret scanning and push protection enabled on both repo's
 1. Within the settings of each repo: "Secret Protection" and "Push Protection" have been enabled.
 
