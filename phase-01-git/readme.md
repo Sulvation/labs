@@ -38,7 +38,7 @@ To ensure signatures are also verified locally:
 ### 5. [X] Each repo contains readme, mit license, .gitignore, .gitattributes and .editorconfig
 
 ### 6. [X] Each repo has the folder skeleton from the plan, empty folders exist in the repo.
-1. All folders have been created in the appropriate repos according to the plan. Empty folders are also present
+1. All folders have been created in the appropriate repos according to the plan.
 
 ### 7. [x] Shell scripts are stored with LF endings
 PS C:\learninglab\meridiaan-platform> git ls-files --eol
@@ -195,6 +195,7 @@ error: failed to push some refs to 'github.com:Sulvation/meridiaan-platform.git'
 
 ### 13. [X] Git log across both repo's show no-reply identifier and only verified commits
 Commits from S1 are not signed, as that was before signing was setup. 7b8795d is not either due to a mistake.
+Commits 761818c and 48dbfce contain override-code. Marker is in the commit body.
 
 ### 14. [X] At least 4 ADR's exist for this phase
 
@@ -205,3 +206,4 @@ ADR-0007: phase1-hook-mechanism-gitleaks
 ADR-0008: phase1-solo-maintainer-ruleset
 ADR-0009: phase1-labs-adr
 ADR-0010: phase1-labs-env-ignore
+ADR-0011: phase1-labs-merge-method

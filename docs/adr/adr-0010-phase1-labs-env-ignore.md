@@ -1,7 +1,5 @@
 # Gitignore will keep only .env for now
 
-(star) = * , replacement due to markdown formatting.
-
 ## Context and Problem Statement
 
 During testing I've found that "*.env" and ".env.(star)" are still allowed. Should this be the case?
@@ -9,7 +7,7 @@ During testing I've found that "*.env" and ".env.(star)" are still allowed. Shou
 
 ## Considered Options
 
-Include *.env and env.(star)
+Include `*.env` and `.env.*`
 Keep only .env
 
 ## Decision Outcome
