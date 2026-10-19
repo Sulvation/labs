@@ -10,13 +10,13 @@ Account belongs to a personal email with no ties to any company. 2FA uses a pass
 This can be verified by going into Github > Settings > Password and Authentication > it says 1 passkey configured.
 
 ### 2. [x] Email privacy enabled
-Email privacy is enabled. git config user.email was set using the Github no reply address in both the Linux (WSL).
+Email privacy is enabled. git config user.email was set using the Github no reply address in the Linux (WSL).
 In Github > Settings > Email > "Keep my email addresses private" is ticked, as well as "Block command line pushes that expose my email".
 
 ### 3. [x] Commits are signed with SSH and show verified, vigilent mode is on
 1. SSH key has been generated and saved on the WSL and added to the SSH-agent.
 2. Public ssh key has been uploaded to Github for both Authentication and as a Signing key in Github > Settings > SSH and GPG keys
-3. In Github > Settings > SSH and GPG keys > Vigilant mode has been enabled.
+3. In Github > Settings > SSH and GPG keys > Vigilent mode has been enabled.
 4. Ran the commands: git config --global gpg.format ssh and git config --global user.signingkey ~/.ssh/id_ed25519
 5. Checked what the remote url is set to: git remote -v
 6. If origin is set to https, change this to ssh: git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
@@ -50,26 +50,45 @@ To ensure signatures are also verified locally:
 
 ## Secrets
 
-### 9. [X] Gitleaks hook blocks a commmit containing a fake secret in both repo's. Fake value must not appear in any commit, on any branch
+### 9. [X] Gitleaks hook blocks a commit containing a fake secret in both repo's. Fake value must not appear in any commit, on any branch
 1. Gitleaks was added to the pre-commit configuration on both repo's.
 
+1. sudo apt install pre-commit
+2. in each repo root: nano .pre-commit-config.yaml >
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+    -   id: gitleaks
+3. pre-commit autoupdate
+4. pre-commit install
+5. check with pre-commit run --all-files
+
 ### 10. [X] Secret scanning and push protection enabled on both repo's
-1. Within the settings of each repo: "Secret Protecion" and "Push Protetion" have been enabled.
+1. Within the settings of each repo: "Secret Protection" and "Push Protection" have been enabled.
 
 ## Workflow
 
 ### 11. [X] A ruleset exists in both repo's to reject direct push to main
 1. In each repo's settings a ruleset has been created with the following settings;
-- Name: Deny-push-to-master
+- Name: Deny-push-to-main
 - Target branches: include "main"
-- Rules: Require a pull request before merking
+- Rules: Require a pull request before merging
          Block force pushes (adr-0008)
          Restrict deletions (adr-0008)
          Require linear history (adr-0008)
+         Require signed commits (adr-0008)
 
 ### 12. [X] At least one change in "main" done through a pull request
 
 ### 13. [X] Git log across both repo's show no-reply identifier and only verified commits
+Commits from S1 are not signed, as that was before signing was setup.
 
 ### 14. [X] At least 4 ADR's exist for this phase
 
