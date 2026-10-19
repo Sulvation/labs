@@ -31,7 +31,6 @@ repos:
     -   id: check-yaml
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
-repos:
 -   repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0
     hooks:

@@ -10,7 +10,7 @@ Account belongs to a personal email with no ties to any company. 2FA uses a pass
 This can be verified by going into Github > Settings > Password and Authentication > it says 1 passkey configured.
 
 ### 2. [x] Email privacy enabled
-Email privacy is enabled. git config user.email was set using the Github no reply address in both the Linux (WSL) and Windows environments.
+Email privacy is enabled. git config user.email was set using the Github no reply address in both the Linux (WSL).
 In Github > Settings > Email > "Keep my email addresses private" is ticked, as well as "Block command line pushes that expose my email".
 
 ### 3. [x] Commits are signed with SSH and show verified, vigilent mode is on
@@ -24,7 +24,7 @@ In Github > Settings > Email > "Keep my email addresses private" is ticked, as w
 
 ### 4. [x] Signatures also verify locally, not just on Github
 To ensure signatures are also verified locally:
-1. git verify-commit HEAD 
+1. git verify-commit HEAD
 2. If error, ls -l ~/.ssh/*.pub
 3. cat ~/.ssh/id_ed25519.pub (or different name if present)
 4. mkdir -p ~/.ssh
@@ -42,9 +42,11 @@ To ensure signatures are also verified locally:
 
 ### 7. [x] Shell scripts are stored with LF endings
 1. .gitattributes contains the line: *.sh text eol=lf
+2. git check-attr -a -- phase-01-setup/bash/simplevm.sh shows: text:set and eol:lf
 
 ### 8. [x] .env files are ignored
 1. .gitignore contains .env
+2. Confirmed by cat .gitignore | grep .env
 
 ## Secrets
 
@@ -61,9 +63,9 @@ To ensure signatures are also verified locally:
 - Name: Deny-push-to-master
 - Target branches: include "main"
 - Rules: Require a pull request before merking
-         Block force pushes (adr-0009)
-         Restrict deletions (adr-0009)
-         Require linear history (adr-0009)
+         Block force pushes (adr-0008)
+         Restrict deletions (adr-0008)
+         Require linear history (adr-0008)
 
 ### 12. [X] At least one change in "main" done through a pull request
 
@@ -72,8 +74,8 @@ To ensure signatures are also verified locally:
 ### 14. [X] At least 4 ADR's exist for this phase
 
 # Decisions
-ADR-0005: phase2-where-git-runs
-ADR-0006: phase2-auth-keys
-ADR-0007: phase2-hook-mechanism-gitleaks
-ADR-0008: phase2-solo-maintainer-ruleset
-ADR-0009: phase2-labs-adr
+ADR-0005: phase1-where-git-runs
+ADR-0006: phase1-auth-keys
+ADR-0007: phase1-hook-mechanism-gitleaks
+ADR-0008: phase1-solo-maintainer-ruleset
+ADR-0009: phase1-labs-adr
