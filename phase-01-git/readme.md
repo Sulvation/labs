@@ -113,6 +113,7 @@ repos:
 4. pre-commit install
 5. check with pre-commit run --all-files
 
+Lab repo test:
 Finding:     # Secrets:
 API KEY: REDACTED
 Secret:      REDACTED
@@ -125,6 +126,21 @@ Fingerprint: phase-01-git/readme.md:generic-api-key:104
 1:10PM INF 0 commits scanned.
 1:10PM INF scanned ~53 bytes (53 bytes) in 87.1ms
 1:10PM WRN leaks found: 1
+
+Meridiaan repo test:
+API_KEY: REDACTED
+Secret:      REDACTED
+RuleID:      generic-api-key
+Entropy:     4.037401
+File:        README.md
+Line:        19
+Fingerprint: README.md:generic-api-key:19
+
+10:14PM INF 0 commits scanned.
+10:14PM INF scanned ~40 bytes (40 bytes) in 83.7ms
+10:14PM WRN leaks found: 1
+
+jeroen@DESKTOP-DRRD1T6:/mnt/c/learninglab/meridiaan-platform$
 
 ### 10. [X] Secret scanning and push protection enabled on both repo's
 1. Within the settings of each repo: "Secret Protection" and "Push Protection" have been enabled.
