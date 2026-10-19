@@ -13,14 +13,15 @@ This can be verified by going into Github > Settings > Password and Authenticati
 Email privacy is enabled. git config user.email was set using the Github no reply address in the Linux (WSL).
 In Github > Settings > Email > "Keep my email addresses private" is ticked, as well as "Block command line pushes that expose my email".
 
-### 3. [x] Commits are signed with SSH and show verified, vigilent mode is on
+### 3. [x] Commits are signed with SSH and show verified, vigilant mode is on
 1. SSH key has been generated and saved on the WSL and added to the SSH-agent.
 2. Public ssh key has been uploaded to Github for both Authentication and as a Signing key in Github > Settings > SSH and GPG keys
-3. In Github > Settings > SSH and GPG keys > Vigilent mode has been enabled.
+3. In Github > Settings > SSH and GPG keys > Vigilant mode has been enabled.
 4. Ran the commands: git config --global gpg.format ssh and git config --global user.signingkey ~/.ssh/id_ed25519
 5. Checked what the remote url is set to: git remote -v
 6. If origin is set to https, change this to ssh: git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
 7. Any local commit now needs to include the -S parameter to sign the commit.
+8. git config --global commit.gpgsign true
 
 ### 4. [x] Signatures also verify locally, not just on Github
 To ensure signatures are also verified locally:

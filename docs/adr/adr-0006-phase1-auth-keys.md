@@ -20,5 +20,4 @@ Chosen option(s): One SSH ed25519 passphrase enabled key for both Signing and Au
 
 ## Consequences
 Legacy systems might not support ed25519 SSH-Keys, and would require rsa 4096, but as this lab creates everything based on recent releases, this should not be an issue and is an accepted risk.
-Any commit now uses to use the -S parameter to sign the commit.
 As the SSH key is located on WSL and accesable through Windows, the passphrase is an additional security measure - as WSL itself won't need the passphrase after the Key has been added to the ssh agent.
