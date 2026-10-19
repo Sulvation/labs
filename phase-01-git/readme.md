@@ -102,6 +102,40 @@ Fingerprint: phase-01-git/readme.md:generic-api-key:104
          Restrict deletions (adr-0008)
          Require linear history (adr-0008)
          Require signed commits (adr-0008)
+2. First push-test failed, as the push went through. The ruleset was not yet enforced.
+3. Enforced the ruleset on each repo.
+4. Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 827 bytes | 91.00 KiB/s, done.
+Total 5 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+remote: error: GH013: Repository rule violations found for refs/heads/main.
+remote: Review all repository rules at https://github.com/Sulvation/labs/rules?ref=refs%2Fheads%2Fmain
+remote:
+remote: - Changes must be made through a pull request.
+remote:
+To github.com:Sulvation/labs.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'github.com:Sulvation/labs.git'
+
+5. Test result on meridiaan repo:
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 560 bytes | 70.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote: error: GH013: Repository rule violations found for refs/heads/main.
+remote: Review all repository rules at https://github.com/Sulvation/meridiaan-platform/rules?ref=refs%2Fheads%2Fmain
+remote:
+remote: - Changes must be made through a pull request.
+remote:
+To github.com:Sulvation/meridiaan-platform.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'github.com:Sulvation/meridiaan-platform.git'
 
 ### 12. [X] At least one change in "main" done through a pull request
 
