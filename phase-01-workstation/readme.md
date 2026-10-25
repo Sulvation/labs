@@ -21,16 +21,37 @@ On windows "$PSversiontable.psversion" shows: Major 7, minor 6, patch 7.
 Microsoft Learn doc lists this as the preferred method of installed Powershell 7 on Linux.
 
 ## 3. [x] Repos on Linux
-Labs and Meridiaan-platform repo's were located on /mnt/c/learninglabs/. These have been moved to ~/src/ by;
-1. shopt -s dotglob (ensure that patterns include hidden names)
-2. cd /mnt/c/learninglabs
-3. mkdir -p ~/src/labs
-4. mkdir -p ~/src/meridiaan-platform
-5. mv labs/* ~/src/labs
-6. cd /mnt/c/learninglabs/meridiaan-platform
-7. mv meridiaan-platform/* ~/src/meridiaan-platform
+1. Renamed the old repo's
+2. Used "git clone" for each repo while in ~/src
+3. Ran "pre-commit install" and verified with "pre-commit run --all-files" in both repo's
+4. Ran gitleaks detect in both repo's
+5. Reconfigured the following git configs that were lost:
+git config core.filemode false
+git config branch.main.vscode-merge-base origin/main
+git config --global user.email 96924497+Sulvation@users.noreply.github.com
+6. Created "secrettest.md" with a fake API key and secret on labs repo
+7. Got the error on commit:
+Finding:     API_KEY: REDACTED
+Secret:      REDACTED
+RuleID:      generic-api-key
+Entropy:     3.932138
+File:        secrettest.md
+Line:        1
+Fingerprint: secrettest.md:generic-api-key:1
+8. Ran "rm secrettest.md"
+9. Same thing on meridiaan-platform repo:
+Finding:     API_KEY: REDACTED
+Secret:      REDACTED
+RuleID:      generic-api-key
+Entropy:     3.932138
+File:        secrettest.md
+Line:        1
+Fingerprint: secrettest.md:generic-api-key:1
 
-Then each location was checked to see if .git was present and if git pull said "Already up to date", which both repos did.
+12:43AM INF 0 commits scanned.
+12:43AM INF scanned ~29 bytes (29 bytes) in 34.9ms
+12:43AM WRN leaks found: 1
+10. Ran "rm secrettest.md"
 
 Doing everything from the Linux terminal to prevent I/O performance issues across Windows / WSL.
 
@@ -59,7 +80,8 @@ Fingerprint: throwaway.md:generic-api-key:1
 11:05PM INF scanned ~29 bytes (29 bytes) in 35.4ms
 11:05PM WRN leaks found: 1
 
-## 6. [] Line endings are deliberate: the repos have a .gitattributes policy. Opening and saving a file from the Windows side and from the WSL side doesn’t produce phantom diffs
+## 6. [x] Line endings are deliberate: the repos have a .gitattributes policy. Opening and saving a file from the Windows side and from the WSL side doesn’t produce phantom diffs
+Both repo's have a .gitattributes, which was already created in previous sessions.
 
 ## 7. [x] VS Code opens the repos through the WSL remote and all extensions are installed
 1. Installed the WSL Extension on Visual Studio Code.
@@ -175,7 +197,7 @@ swap=2GB
 5. WSL was restarted using "wsl --shutdown" and "wsl" in powershell.
 6. wslinfo --networking-mode shows "mirrored" as the output
 
-## 11. [] Readme complete, ADR's present, PR to main and clean gitleaks was run
+## 11. [x] Readme complete, ADR's present, PR to main and clean gitleaks was run
 
 
 # Decisions
