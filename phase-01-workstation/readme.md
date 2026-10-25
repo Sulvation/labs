@@ -26,7 +26,6 @@ Microsoft Learn doc lists this as the preferred method of installed Powershell 7
 3. Ran "pre-commit install" and verified with "pre-commit run --all-files" in both repo's
 4. Ran gitleaks detect in both repo's
 5. Reconfigured the following git configs that were lost:
-git config core.filemode false
 git config branch.main.vscode-merge-base origin/main
 git config --global user.email 96924497+Sulvation@users.noreply.github.com
 6. Created "secrettest.md" with a fake API key and secret on labs repo
