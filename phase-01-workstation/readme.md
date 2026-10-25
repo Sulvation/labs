@@ -23,11 +23,11 @@ Microsoft Learn doc lists this as the preferred method of installed Powershell 7
 ## 3. [x] Repos on Linux
 Labs and Meridiaan-platform repo's were located on /mnt/c/learninglabs/. These have been moved to ~/src/ by;
 1. shopt -s dotglob (ensure that patterns include hidden names)
-2. cd /mnt/c/learning/labs
+2. cd /mnt/c/learninglabs
 3. mkdir -p ~/src/labs
 4. mkdir -p ~/src/meridiaan-platform
 5. mv labs/* ~/src/labs
-6. cd /mnt/c/learning/meridiaan-platform
+6. cd /mnt/c/learninglabs/meridiaan-platform
 7. mv meridiaan-platform/* ~/src/meridiaan-platform
 
 Then each location was checked to see if .git was present and if git pull said "Already up to date", which both repos did.
@@ -64,7 +64,7 @@ Fingerprint: throwaway.md:generic-api-key:1
 ## 7. [x] VS Code opens the repos through the WSL remote and all extensions are installed
 1. Installed the WSL Extension on Visual Studio Code.
 2. From WSL, ran "code ." from ~/src/labs and ~/src/meridiaan-platform
-3. Visual Studio Code opened connected to the repos through the WSL remote automatically, and shows: src [WSL: Ubuntu] in the file explorer.
+3. Visual Studio Code opened connected to the repos through the WSL remote automatically, and shows: 'labs [WSL: Ubuntu]'and 'meridiaan-platform [WSL: Ubuntu]' in the file explorers
 
 1. Python 3.14.4 was already installed prior to starting the module. Checked with: python3 --version
 
@@ -88,20 +88,19 @@ sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
 curl -sLS https://packages.microsoft.com/keys/microsoft.asc |
   gpg --dearmor | sudo tee /etc/apt/keyrings/microsoft.gpg > /dev/null
 sudo chmod go+r /etc/apt/keyrings/microsoft.gpg
-4. sudo apt-get update
+4. AZ_DIST=$(lsb_release -cs)
+echo "Types: deb
+URIs: https://packages.microsoft.com/repos/azure-cli/
+Suites: ${AZ_DIST}
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-by: /etc/apt/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/azure-cli.sources
+5. sudo apt-get update
 sudo apt-get install azure-cli
-5. az version insalled 2.91.0 confirmed with; az --version
+6. az version insalled 2.91.0 confirmed with; az --version
 
 1. Installed bicep using: az bicep install
 2. Version 0.48.1 confirmed using; az bicep version
-
-1. Installed YAML for Python3
-2. sudo apt install python3-pip
-3. sudo pip3 install PyYAML
-4. Verified version 6.0.3 using; python3 -m pip show PyYAML
-
-1. Installed ansible using sudo apt install ansible
-2. Version 2.20.1 confirmed with; ansible --version
 
 1. Installed Kubernetes CLI using;
 2. curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.37/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -137,7 +136,7 @@ Installed the following Visual Studio Code extensions in the WSL workspace;
 3. Remote - SSH
 4. YAML
 5. ShellCheck
-6. Pyhton
+6. Python
 7. HashiCorp Terraform
 8. Kubernetes
 9. Docker
