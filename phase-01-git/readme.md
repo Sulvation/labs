@@ -207,3 +207,4 @@ ADR-0008: phase1-solo-maintainer-ruleset
 ADR-0009: phase1-labs-adr
 ADR-0010: phase1-labs-env-ignore
 ADR-0011: phase1-labs-merge-method
+ADR-0012: phase1-labs-env-ignore2
