@@ -1,4 +1,4 @@
-# WSL Limits
+# WSL Limits and mirrored networking
 
 # Status
 Accepted
@@ -25,4 +25,4 @@ Chosen option: Mirrored Mode, this makes it so that WSL acts as if it was plugge
 ## Consequences
 WSL performance, namely later with Docker containers might be less than ideal. Potential adjustment in the future might be necessary.
 
-The risk is accepted that WSL and the VM's have access to the local network.
+The risk is accepted that things running on WSL, such as docker ports, are reachable by the local network.

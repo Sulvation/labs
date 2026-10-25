@@ -130,6 +130,10 @@ sudo apt update
 4. sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 5. Docker confirmed installed and running with:  sudo systemctl status docker
 
+Installed ansible using;
+1. sudo apt install ansible
+2. Installed version 2.20.1 confirmed with "ansible --version"
+
 Installed the following Visual Studio Code extensions in the WSL workspace;
 1. Powershell
 2. Bicep
@@ -143,12 +147,13 @@ Installed the following Visual Studio Code extensions in the WSL workspace;
 10. EditorConfig
 11. Ansible
 
-## 8. [] AI Completions are off in two levels
+## 8. [X] AI Completions are off in two levels
 1. Opened settings with CNTRL+, - searched for editor.inlinesuggest.enabled
 2. Ensured the setting was off for User, WSL: Ubuntu, and Workspace
 3. Created test.bicep and typed" resource vNet 'Microsoft.networks/virtualnetwor" - intellisense finished the command and added suggestions for the API version. But after using "= {" no gray text apeared.
 4. Re-enabled the settings and tried again, multiple gray lines appeared suggesting parameters for the module.
 5. Disabled the settings again.
+6. The setting is also comitted in settings.json within the .vscode folder for future clones.
 
 
 ## 9. [x] Docker works from WSL terminal
@@ -165,8 +170,10 @@ Installed the following Visual Studio Code extensions in the WSL workspace;
 memory=8GB
 processors=4
 swap=2GB
-3. The lab itself will use 36GB of memory. WSL will bring it to a maximum of 44GB, leaving 12GB for Windows OS and headroom. Entire system has 64GB.
-4. WSL was restarted using "wsl --shutdown" and "wsl" in powershell.
+3. The lab itself will use 36GB of memory. WSL will bring it to a maximum of 44GB, leaving 20GB for Windows OS and headroom. Entire system has 64GB.
+4. Added networkingMode=mirrored to the .wslconfig file for setting the network mode to mirrored as per ADR15.
+5. WSL was restarted using "wsl --shutdown" and "wsl" in powershell.
+6. wslinfo --networking-mode shows "mirrored" as the output
 
 ## 11. [] Readme complete, ADR's present, PR to main and clean gitleaks was run
 
