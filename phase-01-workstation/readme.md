@@ -52,6 +52,28 @@ Fingerprint: secrettest.md:generic-api-key:1
 12:43AM INF scanned ~29 bytes (29 bytes) in 34.9ms
 12:43AM WRN leaks found: 1
 10. Ran "rm secrettest.md"
+11. jeroen@DESKTOP-DRRD1T6:~/src/labs$ ls -l
+total 36
+-rw-r--r-- 1 jeroen jeroen 1066 Oct 26 00:30 LICENSE
+-rw-r--r-- 1 jeroen jeroen  663 Oct 26 00:30 README.md
+drwxr-xr-x 3 jeroen jeroen 4096 Oct 26 00:30 docs
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 drills
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 kql
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 phase-01-git
+drwxr-xr-x 4 jeroen jeroen 4096 Oct 26 00:30 phase-01-setup
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:41 phase-01-workstation
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 rebuilds
+
+jeroen@DESKTOP-DRRD1T6:~/src/meridiaan-platform$ ls -l
+total 28
+-rw-r--r-- 1 jeroen jeroen 1066 Oct 26 00:30 LICENSE
+-rw-r--r-- 1 jeroen jeroen  598 Oct 26 00:30 README.md
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 ansible
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 app
+drwxr-xr-x 4 jeroen jeroen 4096 Oct 26 00:30 docs
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 infra
+drwxr-xr-x 2 jeroen jeroen 4096 Oct 26 00:30 k8s
+jeroen@DESKTOP-DRRD1T6:~/src/meridiaan-platform$
 
 Doing everything from the Linux terminal to prevent I/O performance issues across Windows / WSL.
 
@@ -81,7 +103,8 @@ Fingerprint: throwaway.md:generic-api-key:1
 11:05PM WRN leaks found: 1
 
 ## 6. [x] Line endings are deliberate: the repos have a .gitattributes policy. Opening and saving a file from the Windows side and from the WSL side doesn’t produce phantom diffs
-Both repo's have a .gitattributes, which was already created in previous sessions.
+1. Both repo's have a .gitattributes, which was already created in previous sessions.
+2. As per ADR-0005, all labs will only be run from WSL. Opening and saving a file from Windows won't happen, and therefor won't be tested.
 
 ## 7. [x] VS Code opens the repos through the WSL remote and all extensions are installed
 1. Installed the WSL Extension on Visual Studio Code.
