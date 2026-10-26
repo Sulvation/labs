@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "redhat.vscode-yaml",
+    "timonwong.shellcheck",
+    "ms-python.python",
+    "ms-vscode.powershell",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "hashicorp.terraform",
+    "editorconfig.editorconfig",
+    "ms-azuretools.vscode-docker",
+    "ms-azuretools.vscode-bicep",
+    "redhat.ansible",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-wsl"
+  ]
+}
