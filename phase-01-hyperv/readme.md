@@ -23,8 +23,29 @@ k8s-w02: 10.10.10.52
 \powershell\create-hyperv-network.ps1 - creates an internal switch, grabs the interface index and uses this to create a NAT gateway, after which it creates the NAT network itself.
 Run the script on the Host PC, not WSL, as WSL doesn't have Hyper-V installed.
 
+Output of run 1 and re-run:
+
+1. PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell> .\create-hyperv-network.ps1
+Virtual Switch 'intSwitch' created.
+Interface index is 81
+NAT Gateway 10.10.10.1 : 10.10.10.0/24 created.
+NAT Network OutNat created.
+
+2. PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell> .\create-hyperv-network.ps1
+Virtual Switch 'intSwitch' already exists and is Internal.
+Interface index is 81
+NAT Gateway 10.10.10.1 already exists and is correct.
+NAT Network OutNat : 10.10.10.0/24 already exists and is correct.
+PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell>
+
 ## 2. [x] Isolation
-From my workstation (both WSL and Windows) ping and ssh (with password) to lnx-lab01 work as intended. From a different PC in the home network, ping and ssh to lnx-lab01 do not work.
+1. From my workstation (both WSL and Windows) ping and ssh (with password) to lnx-lab01 work as intended. From a different PC in the home network, ping and ssh to lnx-lab01 do not work.
+2. No inbound mappings present (tested from both Hyper-V Host and a VM for thoroughness)
+[win-lab01]: PS C:\Users\jeroen\Documents> get-netnatStaticMapping
+[win-lab01]: PS C:\Users\jeroen\Documents>
+[win-lab01]: PS C:\Users\jeroen\Documents> exit
+PS C:\learninglab\labs> get-netnatStaticMapping
+PS C:\learninglab\labs>
 
 ## 3. [x] lnx-lab01
 lnx-lab01 is a generation2 vm with static IP: 10.10.10.10, gateway 10.10.10.1 and DNS 1.1.1.1,1.0.0.1 Named admin user is "jeroen".
@@ -56,10 +77,15 @@ Fetched 2,066 kB in 0s (6,211 kB/s)
 jeroen@lnx-lab01:~$
 
 ## 4. [x] win-lab01
-win-lab01 is a generation2 vm with static ip: 10.10.10.11, gateway 10.10.10.1 and DNS 1.1.1.1,1.0.0.1, named admin user is "jeroen"
-Timezone is correct on CET and all updates are installed.
-From my workstation (both WSL and Windows) ping and ssh (with password) is currently blocked due to port 22 not being opened.
-From Windows > Powershell > Enter-PSSession -VMName win-lab01:
+1. win-lab01 is a generation2 vm with static ip: 10.10.10.11, gateway 10.10.10.1 and DNS 1.1.1.1,1.0.0.1, named admin user is "jeroen". Default Administrator disabled with: net user Administrator /ACTIVE:NO
+2. Timezone is correct on CET and all updates are installed.
+3. Enabled ICMP-In with: Set-NetFirewallRule -name CoreNet-Diag-ICMP4-EchoRequest-In -enabled true
+jeroen@DESKTOP-DRRD1T6:~/src/labs$ ping 10.10.10.11
+PING 10.10.10.11 (10.10.10.11) 56(84) bytes of data.
+64 bytes from 10.10.10.11: icmp_seq=1 ttl=128 time=0.699 ms
+64 bytes from 10.10.10.11: icmp_seq=2 ttl=128 time=0.495 ms
+
+4. From Windows > Powershell > Enter-PSSession -VMName win-lab01:
 PS C:\learninglab\labs> Enter-PSSession -vmname win-lab01
 
 cmdlet Enter-PSSession at command pipeline position 1
@@ -70,7 +96,7 @@ Password for user jeroen: *************
 
 [win-lab01]: PS C:\Users\jeroen\Documents>
 
-From WSL due to powershell.exe handleing interop and interactive TTY, a full connection doesn't seem to be possible. But we can run scriptblocks through Powershell Direct:
+5. From WSL due to powershell.exe handleing interop and interactive TTY, a full connection doesn't seem to be possible. But we can run scriptblocks through Powershell Direct:
 
 jeroen@DESKTOP-DRRD1T6:~/src/labs/phase-01-hyperv$ powershell.exe -Command "Invoke-Command -VMName 'win-lab01' -ScriptBlock { Get-Process | select-object -last 5 }"
 
@@ -109,7 +135,7 @@ kill $SSH_AGENT_PID
 PS C:\Windows\System32> wsl
 Agent pid 70774
 Enter passphrase for /home/jeroen/.ssh/id_ed25519:
-Identity added: /home/jeroen/.ssh/id_ed25519 (jeroen.vanderaar1@gmail.com)
+Identity added: /home/jeroen/.ssh/id_ed25519 (email redacted due to privacy reasons)
 Enter passphrase for /home/jeroen/.ssh/server_auth:
 Identity added: /home/jeroen/.ssh/server_auth (jeroen@DESKTOP-DRRD1T6)
 jeroen@DESKTOP-DRRD1T6:/mnt/c/Windows/System32$ cd ~/
@@ -162,14 +188,20 @@ cat: test.txt: No such file or directory
 jeroen@lnx-lab01:~$
 
 6. On win-lab01 created test.txt
-PS C:\Users\Administrator> notepad test.txt
+PS C:\Users\jeroen> notepad test.txt
+PS C:\Users\jeroen> ls | where-object {$_.name -eq "test.txt"}
+    Directory: C:\Users\jeroen\Documents
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10/29/2026  10:07 PM              0 test.txt
 
 7. Apply checkpoint
 8. Check if test.txt exists
-PS C:\Users\Administrator> ls | where-object {$_.name -eq "test.txt"}
-PS C:\Users\Administrator>
+PS C:\Users\jeroen> ls | where-object {$_.name -eq "test.txt"}
+PS C:\Users\jeroen>
 
 ## 7. [x] Repo
+Readme, IP plan, ADR, Runbook present in the Repo. Gitleaks clean.
 
 
 # Decisions
