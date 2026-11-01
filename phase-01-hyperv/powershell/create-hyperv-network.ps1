@@ -61,10 +61,10 @@ Try {
         throw "Multiple NAT Gateways with $GatewayIP were found. Please resolve duplicate manually."
     }
     elseif ($existingNATIps.PrefixLength -ne $NetworkPrefix) {
-        throw "NAT Gateway $GatewayIP exists, but with the wrong Prefix: $existingNATIPs.PrefixLength . Please resolve manually"
+        throw "NAT Gateway $GatewayIP exists, but with the wrong Prefix: '$($existingNATIPs.PrefixLength)' . Please resolve manually"
     }
     elseif ($existingNATIps.InterfaceIndex -ne $InterfaceIndex) {
-        throw "NAT Gateway $GatewayIP exists, but is assigned to the wrong interface index: $existingNATIPs.InterfaceIndex . Please resolve manually."
+        throw "NAT Gateway $GatewayIP exists, but is assigned to the wrong interface index: '$($existingNATIPs.InterfaceIndex)' . Please resolve manually."
     }
     else {
         Write-Output "NAT Gateway $GatewayIP already exists and is correct."
@@ -82,7 +82,7 @@ Try {
         throw "Multiple NAT Networks were found. Please resolve the duplicate(s) manually."
     }
     elseif ($ExistingNATs[0].InternalIPInterfaceAddressPrefix -ne $NatNetwork) {
-        throw "NAT Network $NatName exists, but with the wrong address prefix: $ExistingNATs[0].InternalIPInterfaceAddressPrefix"
+        throw "NAT Network $NatName exists, but with the wrong address prefix: '$($ExistingNATs[0].InternalIPInterfaceAddressPrefix)'"
     }
     else {
         Write-Output "NAT Network $NatName : $NatNetwork already exists and is correct."

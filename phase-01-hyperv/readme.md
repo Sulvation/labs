@@ -28,8 +28,8 @@ Output of run 1 and re-run:
 1. PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell> .\create-hyperv-network.ps1
 Virtual Switch 'intSwitch' created.
 Interface index is 81
-NAT Gateway 10.10.10.1 : 10.10.10.0/24 created.
-NAT Network OutNat created.
+NAT Gateway 10.10.10.1 created.
+NAT Network OutNat : 10.10.10.0/24 created.
 
 2. PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell> .\create-hyperv-network.ps1
 Virtual Switch 'intSwitch' already exists and is Internal.
@@ -40,10 +40,8 @@ PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\
 
 ## 2. [x] Isolation
 1. From my workstation (both WSL and Windows) ping and ssh (with password) to lnx-lab01 work as intended. From a different PC in the home network, ping and ssh to lnx-lab01 do not work.
-2. No inbound mappings present (tested from both Hyper-V Host and a VM for thoroughness)
-[win-lab01]: PS C:\Users\jeroen\Documents> get-netnatStaticMapping
-[win-lab01]: PS C:\Users\jeroen\Documents>
-[win-lab01]: PS C:\Users\jeroen\Documents> exit
+2. No inbound mappings present (ran on Hyper-V host)
+
 PS C:\learninglab\labs> get-netnatStaticMapping
 PS C:\learninglab\labs>
 
@@ -125,7 +123,7 @@ Host lnx-lab01
 HostName 10.10.10.10
 User jeroen
 IdentityFile ~/.ssh/server_auth
-5. Added the following lines to ~/.bashcr:
+5. Added the following lines to ~/.bashrc:
 eval $(ssh-agent)
 ssh-add
 ssh-add ~/.ssh/server_auth
@@ -171,7 +169,7 @@ Last login: Thu Oct 29 09:20:24 2026 from 10.10.10.1
 jeroen@lnx-lab01:~$
 
 ## 6. [x] Checkpoints
-1. Each VM has a "baseline checkpoint" at the current state of configuration. Which for the Windows VM includes networking, data/time, updates. For Linux Vm is includes all the SSH config.
+1. Each VM has a "baseline checkpoint" at the current state of configuration. Which for the Windows VM includes networking, data/time, updates, enabling ICMP-In firewall rule and disabling built-in Administrator account. For Linux Vm is includes all the SSH config.
 2. Both VM's use a "standard" checkpoints, as neither VM will require Application Consistency. Reverting to a standard checkpoint won't require a fresh boot, where Production Checkpoints do.
 3. On lnx-lab01 created a testfile:
 
@@ -188,8 +186,8 @@ cat: test.txt: No such file or directory
 jeroen@lnx-lab01:~$
 
 6. On win-lab01 created test.txt
-PS C:\Users\jeroen> notepad test.txt
-PS C:\Users\jeroen> ls | where-object {$_.name -eq "test.txt"}
+PS C:\Users\jeroen\Documents> notepad test.txt
+PS C:\Users\jeroen\Documents> ls | where-object {$_.name -eq "test.txt"}
     Directory: C:\Users\jeroen\Documents
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
@@ -197,11 +195,64 @@ Mode                 LastWriteTime         Length Name
 
 7. Apply checkpoint
 8. Check if test.txt exists
-PS C:\Users\jeroen> ls | where-object {$_.name -eq "test.txt"}
-PS C:\Users\jeroen>
+PS C:\Users\jeroen\Documents> ls | where-object {$_.name -eq "test.txt"}
+PS C:\Users\jeroen\Documents>
 
 ## 7. [x] Repo
 Readme, IP plan, ADR, Runbook present in the Repo. Gitleaks clean.
+
+# How to run:
+
+## Windows VM
+
+- Generation 2 VM
+- 2 vCPU's
+- 4GB Memory
+- Dynamic Memory disabled
+- 64GB VHDX Static Hard Drive on D:\VM\win-lab01\Virtual Hard Disks
+- Secure Boot, TPM enabled on the Microsoft Windows Template
+- ISO Sourced from Visual Studio subscription: Microsoft Windows Server 2025 Datacenter
+- Install Core, and not GUI version
+- Use Sconfig to configure the following;
+* 2) Computer name: win-lab01
+* 3) Add Local Administrator: jeroen
+* 8) Network settings:
+    IP: 10.10.10.11/24
+    DNS1: 1.1.1.1
+    DNS2: 1.0.0.1
+* 9) Date and time: CET Timezone
+* 6) Install updates: Keep searching for "All Quality Updates" and install until no further updates are available
+* 15) Exit to command line (Powershell):
+    net user Administrator /active:no
+    Set-NetFirewallRule -Name CoreNet-Diag-ICMP4-EchoRequest-In -enabled True
+
+## Linux VM
+
+- Generation 2 VM
+- 2 vCPU's
+- 4GB Memory
+- Dynamic Memory disabled
+- 64GB VHDX Static Hard Drive on D:\VM\lnx-lab01\Virtual Hard Disks
+- Secure Boot Enabled on the Microsoft UEFI Certificate Authority Template
+- ISO Sourced from Ubuntu's official website: Ubuntu Server 26.04.1 LTS
+    Verify hash on Windows Host:
+    1. cd $env:USERPROFILE\Downloads
+    2. Get-FileHash .\ubuntu-26.04.1-server-amd64.iso -Algorithm SHA256
+    3. Compare Output to the Hash listed on the download page. In this case: cc8a95cde20f6ced61a322420de00f10cc3c90ced545daa46cb9c1a117f1d927
+- Install the OS, follow the installer steps and configure the following configuration:
+    IP: 10.10.10.10/24
+    DNS 1: 1.1.1.1
+    DNS 2: 1.0.0.1
+    CET Timezone
+- Updates:
+    1. sudo apt update && sudo apt upgrade
+    2. sudo apt full-upgrde
+    3. sudo apt autoremove
+- MAC adress, use "ip a" to find the MAC address of the Ethernet Adapter. Set this MAC to static in the Hyper-V Network Adapater advanced settings
+
+
+# What to do different
+Better safer, more robust ssh-agent configuration.
 
 
 # Decisions
