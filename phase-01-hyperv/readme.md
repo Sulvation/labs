@@ -255,7 +255,6 @@ Readme, IP plan, ADR, Runbook present in the Repo. Gitleaks clean.
     1. sudo apt update && sudo apt upgrade
     2. sudo apt full-upgrade
     3. sudo apt autoremove
-- MAC adress, use "ip a" to find the MAC address of the Ethernet Adapter. Set this MAC to static in the Hyper-V Network Adapater advanced settings
 - Set the VM checkpoint option to "Standard"
 - Create a checkpoint and rename it to: Baseline Checkpoint
 
