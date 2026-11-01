@@ -28,7 +28,7 @@ Output of run 1 and re-run:
 1. PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell> .\create-hyperv-network.ps1
 Virtual Switch 'intSwitch' created.
 Interface index is 81
-NAT Gateway 10.10.10.1 created.
+NAT Gateway 10.10.10.1 created
 NAT Network OutNat : 10.10.10.0/24 created.
 
 2. PS Microsoft.PowerShell.Core\FileSystem::\\wsl.localhost\Ubuntu\home\jeroen\src\labs\phase-01-hyperv\powershell> .\create-hyperv-network.ps1
@@ -191,7 +191,7 @@ PS C:\Users\jeroen\Documents> ls | where-object {$_.name -eq "test.txt"}
     Directory: C:\Users\jeroen\Documents
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a----        10/29/2026  10:07 PM              0 test.txt
+-a----        11/01/2026  16:07 PM              0 test.txt
 
 7. Apply checkpoint
 8. Check if test.txt exists
@@ -220,11 +220,14 @@ Readme, IP plan, ADR, Runbook present in the Repo. Gitleaks clean.
     IP: 10.10.10.11/24
     DNS1: 1.1.1.1
     DNS2: 1.0.0.1
+    Gateway: 10.10.10.1
 * 9) Date and time: CET Timezone
 * 6) Install updates: Keep searching for "All Quality Updates" and install until no further updates are available
 * 15) Exit to command line (Powershell):
     net user Administrator /active:no
     Set-NetFirewallRule -Name CoreNet-Diag-ICMP4-EchoRequest-In -enabled True
+- Set the VM checkpoint option to "Standard"
+- Create a checkpoint and rename it to: Baseline Checkpoint
 
 ## Linux VM
 
@@ -240,20 +243,24 @@ Readme, IP plan, ADR, Runbook present in the Repo. Gitleaks clean.
     2. Get-FileHash .\ubuntu-26.04.1-server-amd64.iso -Algorithm SHA256
     3. Compare Output to the Hash listed on the download page. In this case: cc8a95cde20f6ced61a322420de00f10cc3c90ced545daa46cb9c1a117f1d927
 - Install the OS, follow the installer steps and configure the following configuration:
+    Hostname: lnx-lab01
     IP: 10.10.10.10/24
     DNS 1: 1.1.1.1
     DNS 2: 1.0.0.1
+    Gateway: 10.10.10.1
     CET Timezone
+    Check the "Install SSH Server" checkbox
+    Admin user: jeroen
 - Updates:
     1. sudo apt update && sudo apt upgrade
-    2. sudo apt full-upgrde
+    2. sudo apt full-upgrade
     3. sudo apt autoremove
 - MAC adress, use "ip a" to find the MAC address of the Ethernet Adapter. Set this MAC to static in the Hyper-V Network Adapater advanced settings
-
+- Set the VM checkpoint option to "Standard"
+- Create a checkpoint and rename it to: Baseline Checkpoint
 
 # What to do different
 Better safer, more robust ssh-agent configuration.
-
 
 # Decisions
 ADR-0016: phase1-hyperv-networking
