@@ -191,7 +191,7 @@ PS C:\Users\jeroen\Documents> ls | where-object {$_.name -eq "test.txt"}
     Directory: C:\Users\jeroen\Documents
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a----        11/01/2026  16:07 PM              0 test.txt
+-a----        11/01/2026  16:15             0 test.txt
 
 7. Apply checkpoint
 8. Check if test.txt exists
