@@ -1,0 +1,14 @@
+- name: Install Nginx and ensure it's running and enabled at boot.
+  hosts: linuxHosts
+  tasks:
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      become: true
+    - name: Ensure nginx is running and enabled at boot
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+      become: true
